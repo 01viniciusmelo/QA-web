@@ -1,0 +1,65 @@
+{%  extends 'website/layouts/base_layout.html' %}
+{% load humanize %}
+{% block main_content %}
+    {% if open_fire_users %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="usn_table_master">
+                <thead>
+                <tr>
+                    <th>نام کاربری</th>
+                    <th>رمز عبور</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>عملیات</th>
+                </tr>
+                </thead>
+                <tbody id="usn_table_body">
+                {% for open_fire_user in open_fire_users %}
+                    <tr>
+                        <td class="lato-font" width="27%">{{ open_fire_user.username }}</td>
+                        <td class="lato-font" width="27%">{{ open_fire_user.password }}</td>
+                        <td width="27%">{{ open_fire_user.created_on | naturaltime }}</td>
+                        <td width="19%">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-danger" onclick="sample_function({{ open_fire_user.pk }})">حذف حساب
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info" id="no_user_warn">
+            You don't have any users in OpenFire server
+        </div>
+    {% endif %}
+    <div class="form-inline">
+        <div class="form-group">
+            <label class="sr-only" for="usn">نام کاربری</label>
+            <input type="text" class="form-control" name="username" id="usn" placeholder="نام کاربری">
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="usn">نام کاربری</label>
+            <input type="text" class="form-control" name="username" id="usn" placeholder="نام کاربری">
+        </div>
+        <button type="button" class="btn btn-success">ساخت کاربر جدید</button>
+    </div>
+{% endblock %}
+
+
+{% block inline_style_sheet %}
+    .lato-font{
+        font-family: 'Lato', sans-serif;
+    }
+{% endblock %}
+
+{% block inline_js %}
+    function sample_function(inp){
+
+    }
+{% endblock %}

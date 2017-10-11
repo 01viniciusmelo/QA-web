@@ -1,0 +1,35 @@
+{%  extends 'website/layouts/base_layout.html' %}
+
+{% block main_content %}
+    <div class="col-md-4 col-md-offset-4" >
+
+        <form action="{% url 'login' %}" method="post" role="form" style="direction: rtl;">
+            <legend>ورود</legend>
+            <div class="form-group">
+                <label for="usn">نام کاربری</label>
+                <input type="text" style="direction: ltr" class="form-control" name="username" id="usn">
+            </div>
+
+            <div class="form-group">
+                <label for="psw">رمز عبور</label>
+                <input type="password" style="direction: ltr" class="form-control" name="password" id="psw">
+            </div>
+            {% csrf_token %}
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ورود</button>
+            </div>
+        </form>
+
+        {% if not form.is_valid and form.non_field_errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for non_field_error in form.non_field_errors %}
+                        <li>{{ non_field_error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        {% endif %}
+
+    </div>
+{% endblock %}
