@@ -21,9 +21,12 @@
                         <td width="19%">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-danger" onclick="sample_function({{ open_fire_user.pk }})">حذف حساب
-                                        <i class="fa fa-trash"></i>
-                                    </button>
+                                    <form>
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button type="submit" class="btn btn-danger" onclick="sample_function({{ open_fire_user.pk }})">حذف حساب
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
 
@@ -35,7 +38,7 @@
         </div>
     {% else %}
         <div class="alert alert-info" id="no_user_warn">
-            You don't have any users in OpenFire server
+            شما کاربری ایجاد نکرده اید.
         </div>
     {% endif %}
     <div class="form-inline">

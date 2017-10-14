@@ -25,3 +25,13 @@ class OpenFireUser(models.Model):
             usn = self.username
 
         return "{} owned by {}".format(usn, self.owner.get_username())
+
+
+    def __unicode__(self):
+
+        if len(self.username) > 15:
+            usn = self.username[:12] + "..."
+        else:
+            usn = self.username
+
+        return "{} owned by {}".format(usn, self.owner.get_username())

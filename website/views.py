@@ -9,6 +9,7 @@ from django.contrib.auth import get_user
 
 
 class IndexView(LoginRequiredMixin, View):
+
     def get(self, request, *args, **kwargs):
         current_user = get_user(request)
         users = current_user.openfireuser_set.all()
@@ -25,6 +26,11 @@ class WebSiteLogoutView(LogoutView):
     next_page = 'index'
 
 
+class OpenFireUserView(LoginRequiredMixin, View):
+    pass
+
+
 class second_index(View):
+
     def delete(self, request, *args, **kwargs):
         return HttpResponse("done!")
