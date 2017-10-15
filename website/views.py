@@ -47,4 +47,4 @@ class OpenFireUserView(LoginRequiredMixin, View):
 
     def delete(self, request, *args, **kwargs):
         # delete user using request
-        return HttpResponse("POST")
+        return HttpResponse("DELETE")
