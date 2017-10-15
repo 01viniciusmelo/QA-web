@@ -9,6 +9,10 @@ class Action(models.Model):
     action_text = models.TextField(blank=False, null=False)
     date_done = models.DateTimeField(auto_now=False, auto_now_add=True)
 
+    def __str__(self):
+        msg='{} done via {}.'.format(self.action_text,self.user.name)
+        return msg
+
 
 class OpenFireUser(models.Model):
     username = models.CharField(max_length=50)
@@ -25,3 +29,4 @@ class OpenFireUser(models.Model):
             usn = self.username
 
         return "{} owned by {}".format(usn, self.owner.get_username())
+

@@ -1,0 +1,16 @@
+{
+	"settings":
+	{
+		"sublimeautopep8":
+		{
+			"file_menu_search_depth": 3,
+			"format_on_save": false,
+			"max-line-length": 79,
+			"show_output_panel": true,
+			"syntax_list":
+			[
+				"Python"
+			]
+		}
+	}
+}

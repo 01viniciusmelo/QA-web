@@ -1,10 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, Http404
 from django.http import HttpResponse
-from django.conf import settings
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import OpenFireUser
 from django.contrib.auth import get_user
 
 
@@ -25,6 +23,28 @@ class WebSiteLogoutView(LogoutView):
     next_page = 'index'
 
 
-class second_index(View):
+class OpenFireUserView(LoginRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        method = self.get_method_type(request)
+        if method == "POST":
+            return self.post(request, *args, **kwargs)
+        elif method == "DELETE":
+            return self.delete(request, *args, **kwargs)
+        else:
+            raise Http404
+
+    def get_method_type(self, request):
+        if request.method == "GET":
+            return "GET"
+        elif "_method" in request.POST:
+            return request.POST["_method"].upper()
+        else:
+            return "POST"
+
+    def post(self, request, *args, **kwargs):
+        # create new user using form
+        return HttpResponse("POST")
+
     def delete(self, request, *args, **kwargs):
-        return HttpResponse("done!")
+        # delete user using request
+        return HttpResponse("POST")
