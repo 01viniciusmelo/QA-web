@@ -1,11 +1,11 @@
 from django.contrib.auth.forms import AuthenticationForm
-import django.forms as FormWidgets
+from django.forms import ModelForm
 from django import forms
-from . import models
+from .models import OpenFireUser
 
 
 class OpenFireUserForm(ModelForm):
     class Meta:
         model = OpenFireUser
-        fields = ('username', 'password', 'owner', 'created_on', 'updated_on', )
+        fields = ('username', 'password', 'owner',)
     
