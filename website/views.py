@@ -7,6 +7,7 @@ from django.contrib.auth import get_user
 from .models import OpenFireUser
 from .forms import OpenFireUserForm
 from django.contrib import messages
+from .openfire import rest_api
 
 
 class IndexView(LoginRequiredMixin, View):
@@ -45,19 +46,28 @@ class OpenFireUserView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         # create new user using form
-        new_openfire = OpenFireUserForm(request.POST)
-        if new_openfire.is_valid():
-            new_openfire.save()
+        new_open_fire = OpenFireUserForm(request.POST)
+        if new_open_fire.is_valid():
+            ret = rest_api.create_new_user(request.POST["username"], request.POST["password"])
+            if ret:
+                new_open_fire.save()
+            else:
+                raise Http404()
         else:
-            if new_openfire.has_error("username"):
-                messages.add_message(request, messages.WARNING, new_openfire.errors["username"][0])
-            if new_openfire.has_error("password"):
-                messages.add_message(request, messages.WARNING, new_openfire.errors["password"][0])
+            if new_open_fire.has_error("username"):
+                messages.add_message(request, messages.WARNING, new_open_fire.errors["username"][0])
+            if new_open_fire.has_error("password"):
+                messages.add_message(request, messages.WARNING, new_open_fire.errors["password"][0])
         return redirect('index')
 
     def delete(self, request, *args, **kwargs):
         # delete user using request
         if "user_pk" in request.POST:
             old_open_fire = get_object_or_404(OpenFireUser, pk=request.POST["user_pk"])
-            old_open_fire.delete()
+            ret = rest_api.delete_user(old_open_fire.username)
+            if ret:
+                old_open_fire.delete()
+            else:
+                raise Http404()
         return redirect('index')
+
