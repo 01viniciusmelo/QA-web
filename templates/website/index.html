@@ -21,7 +21,7 @@
                         <td width="19%">
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <form action="{% url 'openfireuser' %}" method="POST">
+                                    <form action="{% url 'openfire-admin:openfireuser' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="_method" value="delete">
                                         <input type="hidden" name="user_pk" value="{{ open_fire_user.pk }}">
@@ -43,7 +43,7 @@
             شما کاربری ایجاد نکرده اید.
         </div>
     {% endif %}
-    <form action="{% url 'openfireuser' %}" method="post">
+    <form action="{% url 'openfire-admin:openfireuser' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="owner" value="{{ user.pk }}">
         <div class="form-inline">
