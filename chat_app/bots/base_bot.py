@@ -13,4 +13,4 @@ class BaseBot():
 
 class SampleBot(BaseBot):
     def answer(self, question):
-        return f"your answer: {question}"
+        return 'your answer: {}'.format(question)

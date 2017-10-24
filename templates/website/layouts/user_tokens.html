@@ -1,0 +1,65 @@
+{% load humanize %}
+{% if user_tokens %}
+        <div class="table-responsive" style="padding-top: 10px">
+            <table class="table table-hover table-bordered" id="usn_table_master">
+                <thead>
+                <tr>
+                    <th>نام ماژول</th>
+                    <th>نام کلاس</th>
+                    <th>نشانه</th>
+                    <th>حداکثر کوئری</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>عملیات</th>
+                </tr>
+                </thead>
+                <tbody id="token_table_body">
+                {% for token in user_tokens %}
+                    <tr>
+                        <td class="lato-font align-center" width="10%">{{ token.bot_module_name }}</td>
+                        <td class="lato-font align-center" width="10%">{{ token.bot_class_name }}</td>
+                        <td class="lato-font align-center" ><code><pre>{{ token.token }}</pre></code></td>
+                        <td class="lato-font align-center" width="15%" style="direction:ltr;">{{ token.max_queries }}</td>
+                        <td class="align-center" width="20%">{{ token.created_on | naturaltime }}</td>
+                        <td class="align-center" width="15%">
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <form action="{% url 'openfire-admin:user-token' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="_method" value="delete">
+                                        <input type="hidden" name="token_pk" value="{{ token.pk }}">
+                                        <button type="submit" class="btn btn-danger">حذف حساب
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+    <div class="jumbotron">
+        <div class="container alert alert-info">
+            <p>        شما هنوز هیچ رباتی ایجاد نکرده اید.</p>
+        </div>
+    </div>
+{% endif %}
+    <form action="{% url 'openfire-admin:user-token' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="user" value="{{ user.pk }}">
+        <div class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="bot_module_name">نام ماژول روبات</label>
+                <input type="text" class="form-control" name="bot_module_name" id="bot_module_name" value="base_bot"
+                       placeholder="نام ماژول روبات">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="bot_class_name">نام کلاس روبات</label>
+                <input type="text" class="form-control" name="bot_class_name" id="bot_class_name" value="SampleBot"
+                       placeholder="نام کلاس روبات">
+            </div>
+            <button type="submit" class="btn btn-success">ایجاد روبات جدید</button>
+        </div>
+    </form>
