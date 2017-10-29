@@ -46,19 +46,24 @@
         </div>
     </div>
 {% endif %}
-    <form action="{% url 'openfire-admin:user-token' %}" method="post">
+    <form enctype="multipart/form-data" action="{% url 'openfire-admin:user-token' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="user" value="{{ user.pk }}">
         <div class="form-inline">
             <div class="form-group">
                 <label class="sr-only" for="bot_module_name">نام ماژول روبات</label>
-                <input type="text" class="form-control" name="bot_module_name" id="bot_module_name" value="base_bot"
+                <input type="text" style="direction: ltr;" data-toggle="tooltip" data-title="نام ماژول روبات" class="form-control lato-font" name="bot_module_name" id="bot_module_name" value="base_bot"
                        placeholder="نام ماژول روبات">
             </div>
             <div class="form-group">
                 <label class="sr-only" for="bot_class_name">نام کلاس روبات</label>
-                <input type="text" class="form-control" name="bot_class_name" id="bot_class_name" value="SampleBot"
+                <input type="text" style="direction: ltr;" data-toggle="tooltip" data-title="نام کلاس روبات" class="form-control lato-font" name="bot_class_name" id="bot_class_name" value="SampleBot"
                        placeholder="نام کلاس روبات">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="bot_file">فایل روبات</label>
+                <input type="file" class="form-control" name="bot_file" id="bot_file"
+                       placeholder="فایل روبات">
             </div>
             <button type="submit" class="btn btn-success">ایجاد روبات جدید</button>
         </div>

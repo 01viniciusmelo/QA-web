@@ -63,7 +63,9 @@
         <script src="{% static 'jquery-3.1.0.min.js' %}"></script>
         <script src="{% static 'bootstrap.min.js' %}"></script>
         <script>
-
+        $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
             {% block inline_js %}
 
             {% endblock %}

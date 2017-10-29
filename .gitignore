@@ -56,6 +56,7 @@ coverage.xml
 .media/
 local_settings.py
 *.sqlite3
+migrations/*.*
 # Flask stuff:
 instance/
 .webassets-cache
