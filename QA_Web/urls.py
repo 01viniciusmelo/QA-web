@@ -22,5 +22,6 @@ import debug_toolbar
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('website.urls', namespace='openfire-admin')),
+    url(r'^chat/', include('chat_app.urls', namespace='chat-app')),
     url(r'^__debug__', include(debug_toolbar.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

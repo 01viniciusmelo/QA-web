@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'gjz+!0_ey46ayxqk#x!w^3m73+^hzqdk=@(e9%eku(r*%hr05$'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -59,7 +57,7 @@ ROOT_URLCONF = 'QA_Web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,21 +72,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'QA_Web.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'qa_web',
+    #     'USER': 'postgres',
+    #     'PASSWORD': '1234567890',
+    #     'HOST': '',
+    #     'PORT': '',
+    # }
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'qa_web',
-        'USER': 'postgres',
-        'PASSWORD': '1234567890',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'embed-db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -108,10 +108,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
-INTERNAL_IPS =['127.0.0.1',]
+INTERNAL_IPS = ['127.0.0.1', ]
 LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'UTC'
@@ -122,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -130,6 +128,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static_files'),)
 
 # login and logout
-LOGIN_URL='/staff/login/'
+LOGIN_URL = '/staff/login/'
 LOGOUT_URL = '/staff/logout'
-LOGIN_REDIRECT_URL='/'
+LOGIN_REDIRECT_URL = '/'
+
+MODULE_UPLOAD_DESTINATION = os.path.join(BASE_DIR, 'chat_app', 'bots')

@@ -12,7 +12,7 @@ class UserToken(models.Model):
     token = models.CharField(max_length=32, unique=True, null=False, blank=False)
     max_queries = models.IntegerField(default=-1)
     user = models.ForeignKey(User)
-    bot_module_name = models.CharField(max_length=32, default='base_bot')
+    bot_module_name = models.CharField(max_length=32, unique=True, default='base_bot')
     bot_class_name = models.CharField(max_length=32, default='SampleBot')
     created_on = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated_on = models.DateTimeField(auto_now=True)

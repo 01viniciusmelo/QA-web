@@ -1,9 +1,11 @@
 """
 you should catch all exceptions except NotImplementedError
+
+**remove definition BaseBot class in your implementations**
 """
 
 
-class BaseBot():
+class BaseBot:
     def __init__(self):
         pass
 

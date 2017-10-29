@@ -106,6 +106,7 @@ class UserTokenView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         new_token_form = UserTokenForm(request.POST)
+        print(request.POST)
         if new_token_form.is_valid():
             hsh_token_str = "hash string for:{} date:{} pk:{} rand number:{}".format(
                 request.user.username, datetime.datetime.now(),
@@ -118,6 +119,11 @@ class UserTokenView(LoginRequiredMixin, View):
             new_token.bot_class_name = request.POST["bot_class_name"]
             new_token.bot_module_name = request.POST["bot_module_name"]
             new_token.user = request.user
+
+            # TODO: check for correct class name
+            from .helpers import handle_bot_file_upload as handle_upload
+            handle_upload(new_token.bot_module_name, request.FILES["bot_file"])
+
             new_token.save()
         else:
             if new_token_form.has_error("bot_module_name"):
@@ -128,6 +134,8 @@ class UserTokenView(LoginRequiredMixin, View):
 
     def delete(self, request, *args, **kwargs):
         if "token_pk" in request.POST:
-            object = get_object_or_404(UserToken, pk=request.POST["token_pk"])
-            object.delete()
+            object_to_delete = get_object_or_404(UserToken, pk=request.POST["token_pk"])
+            from .helpers import delete_local_file as delete_file
+            delete_file(object_to_delete.bot_module_name)
+            object_to_delete.delete()
             return redirect("openfire-admin:index")
